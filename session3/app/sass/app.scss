@@ -1,0 +1,12 @@
+.app {
+    margin: 10px;
+
+    .hello-text {
+        &.bold {
+            font-weight: bold;
+        }
+        &.red {
+            color: red;
+        }
+    }
+}
