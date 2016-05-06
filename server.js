@@ -2,48 +2,12 @@ import express from "express";
 import path from "path";
 import webpack from "webpack";
 import WebpackDevServer from "webpack-dev-server";
+import webpackConfig from "./webpack.config";
 
 const APP_PORT = 3000;
-const CURRENT_MODULE = "session5";
 
-const compiler = webpack({
-    entry: {
-        app: [
-            "./app/" + CURRENT_MODULE + "/js/main.js",
-            "webpack-dev-server/client?http://localhost:" + APP_PORT + "/",
-            "webpack/hot/dev-server"
-        ]
-    },
-    output: {
-        path: __dirname,
-        filename: "dist/bundle.js",
-        publicPath: "/dist/"
-    },
-    devtool: "source-map",
-    module: {
-        preLoaders: [
-            {
-                test: /\.js?$/,
-                loader: "eslint-loader",
-                exclude: /(node_modules|bower_components)/
-            }
-        ],
-        loaders: [
-            {
-                test: /\.js$/,
-                exclude: /(node_modules|bower_components)/,
-                loader: "babel",
-                query: {
-                    presets: ["es2015", "stage-0", "react"]
-                }
-            }, {
-                test: /\.scss$/,
-                loaders: ["style", "css", "sass"]
-            }
-        ]
-    },
-    plugins: [new webpack.HotModuleReplacementPlugin()]
-});
+webpackConfig.entry.app.unshift("webpack-dev-server/client?http://localhost:" + APP_PORT + "/", "webpack/hot/dev-server");
+const compiler = webpack(webpackConfig);
 const app = new WebpackDevServer(compiler, {
     hot: true,
     quiet: false,
