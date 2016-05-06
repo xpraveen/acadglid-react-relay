@@ -1,12 +1,15 @@
 import React from "react";
+import Header from "./Header";
+import Home from "./Home";
+import BookDrawer from "./BookDrawer";
 
 export default class App extends React.Component {
-
     render() {
         return (
-            <div className="app container">
-                <div className="hello-text bold red">Hello World!</div>
-                <h1>Hello World with Twitter Bootstrap!</h1>
+            <div className="book-store">
+                <Header/>
+                <BookDrawer/>
+                <Home/>
             </div>
         );
     }
