@@ -5,9 +5,6 @@ body {
 .right-align {
     text-align: right;
 }
-.center-align {
-    text-align: center;;
-}
 .float-right {
     float: right;
 }
@@ -30,6 +27,7 @@ body {
         }
     }
     .book-drawer {
+        color: red
         position: absolute;
         right: 0;
         top: 0;
