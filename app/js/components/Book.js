@@ -7,7 +7,6 @@ export default class Book extends React.Component {
 
         event.stopPropagation();
         console.log("Delete book with id: ", book.id, " and name: ", book.title);
-
         this.props.deleteBook(book.id);
     }
     render() {
@@ -20,7 +19,6 @@ export default class Book extends React.Component {
                 <td>
                     <button type="button" className="btn btn-danger" onClick={this.handleBookDelete}>Delete</button>
                 </td>
-
             </tr>
         );
     }

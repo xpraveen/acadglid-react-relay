@@ -17,7 +17,6 @@
         "semi": [2,"always"],
         "react/jsx-boolean-value": [1, "always"],
         "react/jsx-curly-spacing": [1, "never"],
-        "react/jsx-handler-names": 1,
         "react/jsx-indent-props": [1, 4],
         "react/jsx-indent": [1, 4],
         "react/jsx-key": 1,

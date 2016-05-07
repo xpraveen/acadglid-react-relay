@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "./Header";
 import Home from "./Home";
-//import BookDrawer from "./BookDrawer";
+import BookDrawer from "./BookDrawer";
 
 export default class App extends React.Component {
 
@@ -10,6 +10,7 @@ export default class App extends React.Component {
 
         //Mock Data
         this.state = {
+            "view": "HOME",
             "books": [
                 {
                     "id": "1",
@@ -34,19 +35,33 @@ export default class App extends React.Component {
             }
         }
     }
+
+    closeBookDrawer = () => {
+        this.setState({view: "HOME"});
+    }
+
+    openBookDrawer = () => {
+        this.setState({view: "ADD_BOOK"});
+    }
+
+    renderDrawer() {
+        const {view} = this.state;
+        if (view === "ADD_BOOK") {
+            return <BookDrawer closeBookDrawer={this.closeBookDrawer}/>;
+        }
+    }
+
     render() {
         let {books} = this.state;
 
         return (
             <div className="book-store">
-                <Header/> {/*<BookDrawer/>*/
-                /*Comment this out, we don't need it now.*/
-            } < Home books = {
-                books
-            }
-            deleteBook = {
-                this.deleteBook
-            } /> </div}
+                <Header openBookDrawer={this.openBookDrawer}/>
+                <Home books={books} deleteBook={this.deleteBook}/>
+                <div>
+                    {this.renderDrawer()}
+                </div>
+            </div>
         );
     }
 }
