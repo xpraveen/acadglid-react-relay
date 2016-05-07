@@ -3,9 +3,16 @@ import Book from "./Book";
 
 export default class Books extends React.Component {
 
+    /**
+     * Seprate render method to show list of Books
+     */
+    renderBooks() {
+        const {books} = this.props;
+        return (books.map((book) => {
+            return (<Book key={book.id} book={book}/>);
+        }));
+    }
     render() {
-        const {books, deleteBook} = this.props; //Getting data using props.
-
         return (
             <div>
                 <table className="table table-hover">
@@ -13,15 +20,10 @@ export default class Books extends React.Component {
                         <tr>
                             <th>#</th>
                             <th>BOOK</th>
-                            <th>DELETE</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {
-                            books.map((book) => {
-                                return (<Book key={book.id} book={book} deleteBook={deleteBook}/>);
-                            })
-                        }
+                        {this.renderBooks()}
                     </tbody>
                 </table>
             </div>

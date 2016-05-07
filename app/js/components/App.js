@@ -25,28 +25,14 @@ export default class App extends React.Component {
         };
     }
 
-    deleteBook = (id) => {
-        let {books} = this.state;
-        for (let i = 0; i < books.length; i++) {
-            if (books[i].id === id) {
-                books.splice(i, 1);
-                this.setState({books});
-            }
-        }
-    }
     render() {
         let {books} = this.state;
 
         return (
             <div className="book-store">
-                <Header/> {/*<BookDrawer/>*/
-                /*Comment this out, we don't need it now.*/
-            } < Home books = {
-                books
-            }
-            deleteBook = {
-                this.deleteBook
-            } /> </div}
+                <Header/>
+                <Home books={books}/>
+            </div>
         );
     }
 }
