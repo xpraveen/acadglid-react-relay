@@ -11,6 +11,7 @@ export default class App extends React.Component {
         //Mock Data
         this.state = {
             "view": "HOME",
+            "bookIdCounter": 4,
             "books": [
                 {
                     "id": "1",
@@ -24,6 +25,7 @@ export default class App extends React.Component {
                 }
             ]
         };
+
     }
 
     deleteBook = (id) => {
@@ -34,6 +36,14 @@ export default class App extends React.Component {
                 this.setState({books});
             }
         }
+    }
+
+    addBook = (book) => {
+        let {bookIdCounter} = this.state;
+        book.id = `${bookIdCounter}`;
+        this.state.books.push(book);
+        bookIdCounter++;
+        this.setState({bookIdCounter}); //This will trigger render call.
     }
 
     closeBookDrawer = () => {
@@ -47,7 +57,7 @@ export default class App extends React.Component {
     renderDrawer() {
         const {view} = this.state;
         if (view === "ADD_BOOK") {
-            return <BookDrawer closeBookDrawer={this.closeBookDrawer}/>;
+            return <BookDrawer addBook={this.addBook} closeBookDrawer={this.closeBookDrawer}/>;
         }
     }
 
