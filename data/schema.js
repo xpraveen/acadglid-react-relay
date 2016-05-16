@@ -1,8 +1,4 @@
-import {GraphQLSchema,
-    GraphQLObjectType,
-    GraphQLString,
-    GraphQLInt
-} from "graphql";
+import {GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLInt} from "graphql";
 
 let helloCounter = 0;
 
