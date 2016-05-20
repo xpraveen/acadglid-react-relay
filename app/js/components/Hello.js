@@ -16,9 +16,9 @@ class Hello extends React.Component {
 export default Relay.createContainer(Hello, {
     fragments: {
         bookStore: () => Relay.QL `
-            fragment on BookStore{
-                hello
-            }
+        fragment on BookStore {
+            hello
+        }
         `
     }
 });
