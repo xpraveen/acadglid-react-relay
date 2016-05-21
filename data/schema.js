@@ -1,33 +1,45 @@
-import {GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLInt} from "graphql";
-
 import {
-    globalIdField
-} from "graphql-relay";
+    GraphQLSchema,
+    GraphQLObjectType,
+    GraphQLString,
+    GraphQLList,
+    GraphQLNonNull,
+    GraphQLID
+} from "graphql";
 
-let helloCounter = 0;
+import {globalIdField, toGlobalId} from "graphql-relay";
+
+import {getBooks} from "./database";
+
+let bookType = new GraphQLObjectType({
+    name: "Book",
+    fields: () => ({
+        id: {
+            type: new GraphQLNonNull(GraphQLID),
+            resolve: (obj) => toGlobalId("Book", obj.id)
+        },
+        title: {
+            type: GraphQLString
+        }
+    })
+});
 
 const bookStoreType = new GraphQLObjectType({
     name: "BookStore",
     fields: () => ({
         id: globalIdField("BookStore"),
-        hello: {
-            type: GraphQLString,
+        "books": ({
+            type: new GraphQLList(bookType),
             resolve: () => {
-                helloCounter++;
-                return `${helloCounter}: Hello World`;
+                return getBooks();
             }
-        },
-        counter: {
-            type: GraphQLInt,
-            resolve: () => helloCounter
-        }
+        })
+
     })
 });
 
-
 class BookStore {}
-let bookStore = new BookStore();
-
+const bookStore = new BookStore();
 
 const query = new GraphQLObjectType({
     name: "Query",

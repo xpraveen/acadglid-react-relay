@@ -1,49 +1,16 @@
 import React from "react";
+import Relay from "react-relay";
 import Header from "./Header";
 import Home from "./Home";
 import BookDrawer from "./BookDrawer";
 
-export default class App extends React.Component {
+class App extends React.Component {
 
     constructor(props) {
         super(props);
-
-        //Mock Data
         this.state = {
-            "view": "HOME",
-            "bookIdCounter": 4,
-            "books": [
-                {
-                    "id": "1",
-                    "title": "Philosopher's Stone"
-                }, {
-                    "id": "2",
-                    "title": "Chamber of Secrets"
-                }, {
-                    "id": "3",
-                    "title": "Prisoner of Azkaban"
-                }
-            ]
+            view: "HOME"
         };
-
-    }
-
-    deleteBook = (id) => {
-        let {books} = this.state;
-        for (let i = 0; i < books.length; i++) {
-            if (books[i].id === id) {
-                books.splice(i, 1);
-                this.setState({books});
-            }
-        }
-    }
-
-    addBook = (book) => {
-        let {bookIdCounter} = this.state;
-        book.id = `${bookIdCounter}`;
-        this.state.books.push(book);
-        bookIdCounter++;
-        this.setState({bookIdCounter}); //This will trigger render call.
     }
 
     closeBookDrawer = () => {
@@ -57,17 +24,16 @@ export default class App extends React.Component {
     renderDrawer() {
         const {view} = this.state;
         if (view === "ADD_BOOK") {
-            return <BookDrawer addBook={this.addBook} closeBookDrawer={this.closeBookDrawer}/>;
+            return <BookDrawer closeBookDrawer={this.closeBookDrawer}/>;
         }
     }
 
     render() {
-        let {books} = this.state;
-
+        const {bookStore} = this.props;
         return (
             <div className="book-store">
                 <Header openBookDrawer={this.openBookDrawer}/>
-                <Home books={books} deleteBook={this.deleteBook}/>
+                <Home bookStore={bookStore}/>
                 <div>
                     {this.renderDrawer()}
                 </div>
@@ -75,3 +41,13 @@ export default class App extends React.Component {
         );
     }
 }
+
+export default Relay.createContainer(App, {
+    fragments: {
+        bookStore: () => Relay.QL `
+        fragment on BookStore {
+            ${Home.getFragment("bookStore")}
+        }
+        `
+    }
+});

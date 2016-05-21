@@ -1,15 +1,26 @@
 import React from "react";
+import Relay from "react-relay";
 import Books from "./Books";
 
-export default class Home extends React.Component {
+class Home extends React.Component {
     render() {
         /* Data passed by parent component can be received in child using 'props' */
-        const {books, deleteBook} = this.props;
+        const {bookStore, deleteBook} = this.props;
 
         return (
-            <div>
-                <Books books={books} deleteBook={deleteBook}/>
+            <div className="container">
+                <Books bookStore={bookStore} deleteBook={deleteBook}/>
             </div>
         );
     }
 }
+
+export default Relay.createContainer(Home, {
+    fragments: {
+        bookStore: () => Relay.QL `
+        fragment on BookStore {
+            ${Books.getFragment("bookStore")}
+        }
+        `
+    }
+});

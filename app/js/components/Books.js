@@ -1,10 +1,12 @@
 import React from "react";
+import Relay from "react-relay";
 import Book from "./Book";
 
-export default class Books extends React.Component {
+class Books extends React.Component {
 
     render() {
-        const {books, deleteBook} = this.props; //Getting data using props.
+        const {bookStore} = this.props;
+        const {books} = bookStore;
 
         return (
             <div>
@@ -18,8 +20,8 @@ export default class Books extends React.Component {
                     </thead>
                     <tbody>
                         {
-                            books.map((book) => {
-                                return (<Book key={book.id} book={book} deleteBook={deleteBook}/>);
+                            books.map((book, index) => {
+                                return (<Book key={book.id} index={index + 1}  book={book}/>);
                             })
                         }
                     </tbody>
@@ -28,3 +30,16 @@ export default class Books extends React.Component {
         );
     }
 }
+
+export default Relay.createContainer(Books, {
+    fragments: {
+        bookStore: () => Relay.QL `
+        fragment on BookStore {
+            books{
+                id,
+                ${Book.getFragment("book")}
+            }
+        }
+        `
+    }
+});
