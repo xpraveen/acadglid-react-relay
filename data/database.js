@@ -1,19 +1,8 @@
-let books = [
-    {
-        "id": "1",
-        "title": "Philosopher's Stone",
-        "available": true
-    }, {
-        "id": "2",
-        "title": "Chamber of Secrets",
-        "available": false
-    }, {
-        "id": "3",
-        "title": "Prisoner of Azkaban",
-        "available": true
-    }
-];
+let books = [];
 
+for (let i = 1; i <= 9; i++) {
+    books.push({"id": `${i}`, "title": `Book ${i}`});
+}
 
 export function getBooks() {
     return books;

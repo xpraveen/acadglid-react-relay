@@ -1,13 +1,6 @@
-import {
-    GraphQLSchema,
-    GraphQLObjectType,
-    GraphQLString,
-    GraphQLList,
-    GraphQLNonNull,
-    GraphQLID
-} from "graphql";
+import {GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLNonNull, GraphQLID} from "graphql";
 
-import {globalIdField, toGlobalId} from "graphql-relay";
+import {globalIdField, toGlobalId, connectionDefinitions, connectionArgs, connectionFromArray} from "graphql-relay";
 
 import {getBooks} from "./database";
 
@@ -24,17 +17,21 @@ let bookType = new GraphQLObjectType({
     })
 });
 
+const bookConnection = connectionDefinitions({name: "Book", nodeType: bookType});
+
 const bookStoreType = new GraphQLObjectType({
     name: "BookStore",
     fields: () => ({
         id: globalIdField("BookStore"),
-        "books": ({
-            type: new GraphQLList(bookType),
-            resolve: () => {
-                return getBooks();
+        "books": {
+            type: bookConnection.connectionType,
+            args: {
+                ...connectionArgs
+            },
+            resolve: (_, args) => {
+                return connectionFromArray(getBooks(), args);
             }
-        })
-
+        }
     })
 });
 
