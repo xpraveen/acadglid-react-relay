@@ -14,8 +14,12 @@ class Books extends React.Component {
         this.props.relay.setVariables({"first": null, "last": 10, "afterCursor": null, "beforeCursor": startCursor});
     }
 
+    componentWillReceiveProps(nextProps) {
+        const {filterBy} = nextProps;
+        this.props.relay.setVariables({filterBy});
+    }
     render() {
-        const {bookStore} = this.props;
+        const {bookStore, filterBy} = this.props;
         const {books} = bookStore;
 
         return (
@@ -33,7 +37,7 @@ class Books extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {books.edges.map((edge, index) => {
+                        {books && books.edges.map((edge, index) => {
                             const book = edge.node;
                             return (<Book key={book.id} index={index + 1} bookStore={bookStore} book={book}/>);
                         })
@@ -50,14 +54,15 @@ export default Relay.createContainer(Books, {
         first: 10,
         last: null,
         afterCursor: null,
-        beforeCursor: null
+        beforeCursor: null,
+        filterBy: ""
     },
 
     fragments: {
         bookStore: () => Relay.QL `
         fragment on BookStore {
             ${Book.getFragment("bookStore")}
-            books(first: $first,last: $last, after: $afterCursor, before: $beforeCursor){
+            books(first: $first,last: $last, after: $afterCursor, before: $beforeCursor, filterBy: $filterBy){
                 edges{
                     node{
                         id,

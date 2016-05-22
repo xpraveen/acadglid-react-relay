@@ -1,17 +1,20 @@
 let books = [
     {
         "id": "1",
-        "title": "Philosopher's Stone"
+        "title": "Lady Midnight"
     }, {
         "id": "2",
-        "title": "Chamber of Secrets"
+        "title": "Midnight Children"
     }, {
         "id": "3",
-        "title": "Prisoner of Azkaban"
+        "title": "Parent and children"
     }
 ];
 
 let idCounter = 100;
+
+
+
 export function addBook(title) {
     idCounter++;
     const book = {
@@ -23,7 +26,28 @@ export function addBook(title) {
     return book;
 }
 
-export function getBooks() {
+function serachBookByFilter(filterBy) {
+
+    const filteredBooks = books.filter((book) => {
+        if (book.title.search(new RegExp(filterBy, "i")) >= 0) {
+            return true;
+        } else {
+            return false;
+        }
+    });
+
+    if(filteredBooks){
+        return filteredBooks;
+    }else{
+        return [];
+    }
+}
+
+export function getBooks(filterBy) {
+
+    if (filterBy) {
+        return serachBookByFilter(filterBy);
+    }
     return books;
 }
 

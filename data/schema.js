@@ -54,10 +54,14 @@ const bookStoreType = new GraphQLObjectType({
         "books": {
             type: bookConnection.connectionType,
             args: {
-                ...connectionArgs
+                ...connectionArgs,
+                filterBy: {
+                    type: GraphQLString
+                }
             },
             resolve: (_, args) => {
-                return connectionFromArray(getBooks(), args);
+                const {filterBy} = args;
+                return connectionFromArray(getBooks(filterBy), args);
             }
         }
     })
