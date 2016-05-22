@@ -4,12 +4,26 @@ import Book from "./Book";
 
 class Books extends React.Component {
 
+    moveNext = () => {
+        const {endCursor} = this.props.bookStore.books.pageInfo;
+        this.props.relay.setVariables({"first": 3, "last": null, "afterCursor": endCursor, "beforeCursor": null});
+    }
+
+    movePrev = () => {
+        const {startCursor} = this.props.bookStore.books.pageInfo;
+        this.props.relay.setVariables({"first": null, "last": 3, "afterCursor": null, "beforeCursor": startCursor});
+    }
+
+
     render() {
         const {bookStore} = this.props;
         const {books} = bookStore;
 
         return (
             <div>
+
+                <button className="btn" onClick={this.movePrev}>Prev</button> &nbsp; &nbsp;
+                <button className="btn" onClick={this.moveNext}>Next</button>
                 <table className="table table-hover">
                     <thead>
                         <tr>
@@ -19,12 +33,11 @@ class Books extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {
-                            books.edges.map((edge, index) => {
-                                const book = edge.node;
-                                return (<Book key={book.id} index={index + 1}  book={book}/>);
-                            })
-                        }
+                        {books.edges.map((edge, index) => {
+                            const book = edge.node;
+                            return (<Book key={book.id} index={index + 1} book={book}/>);
+                        })
+}
                     </tbody>
                 </table>
             </div>
@@ -33,15 +46,26 @@ class Books extends React.Component {
 }
 
 export default Relay.createContainer(Books, {
+    initialVariables: {
+        first: 3,
+        last: null,
+        afterCursor: null,
+        beforeCursor: null
+    },
+
     fragments: {
         bookStore: () => Relay.QL `
         fragment on BookStore {
-            books(first: 9999){
+            books(first: $first,last: $last, after: $afterCursor, before: $beforeCursor){
                 edges{
                     node{
                         id,
                         ${Book.getFragment("book")}
                     }
+                }
+                pageInfo {
+                    startCursor,
+                    endCursor
                 }
             }
         }
