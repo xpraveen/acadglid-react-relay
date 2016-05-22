@@ -1,7 +1,26 @@
-let books = [];
+let books = [
+    {
+        "id": "1",
+        "title": "Philosopher's Stone"
+    }, {
+        "id": "2",
+        "title": "Chamber of Secrets"
+    }, {
+        "id": "3",
+        "title": "Prisoner of Azkaban"
+    }
+];
 
-for (let i = 1; i <= 9; i++) {
-    books.push({"id": `${i}`, "title": `Book ${i}`});
+let idCounter = 100;
+export function addBook(title) {
+    idCounter++;
+    const book = {
+        "id": "" + idCounter,
+        "title": title
+    };
+
+    books.push(book);
+    return book;
 }
 
 export function getBooks() {

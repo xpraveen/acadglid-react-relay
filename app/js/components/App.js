@@ -23,8 +23,10 @@ class App extends React.Component {
 
     renderDrawer() {
         const {view} = this.state;
+        const {bookStore} = this.props;
+
         if (view === "ADD_BOOK") {
-            return <BookDrawer closeBookDrawer={this.closeBookDrawer}/>;
+            return <BookDrawer bookStore={bookStore} closeBookDrawer={this.closeBookDrawer}/>;
         }
     }
 
@@ -47,6 +49,7 @@ export default Relay.createContainer(App, {
         bookStore: () => Relay.QL `
         fragment on BookStore {
             ${Home.getFragment("bookStore")}
+            ${BookDrawer.getFragment("bookStore")}
         }
         `
     }

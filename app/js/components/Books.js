@@ -6,14 +6,13 @@ class Books extends React.Component {
 
     moveNext = () => {
         const {endCursor} = this.props.bookStore.books.pageInfo;
-        this.props.relay.setVariables({"first": 3, "last": null, "afterCursor": endCursor, "beforeCursor": null});
+        this.props.relay.setVariables({"first": 10, "last": null, "afterCursor": endCursor, "beforeCursor": null});
     }
 
     movePrev = () => {
         const {startCursor} = this.props.bookStore.books.pageInfo;
-        this.props.relay.setVariables({"first": null, "last": 3, "afterCursor": null, "beforeCursor": startCursor});
+        this.props.relay.setVariables({"first": null, "last": 10, "afterCursor": null, "beforeCursor": startCursor});
     }
-
 
     render() {
         const {bookStore} = this.props;
@@ -22,7 +21,8 @@ class Books extends React.Component {
         return (
             <div>
 
-                <button className="btn" onClick={this.movePrev}>Prev</button> &nbsp; &nbsp;
+                <button className="btn" onClick={this.movePrev}>Prev</button>
+                &nbsp; &nbsp;
                 <button className="btn" onClick={this.moveNext}>Next</button>
                 <table className="table table-hover">
                     <thead>
@@ -47,7 +47,7 @@ class Books extends React.Component {
 
 export default Relay.createContainer(Books, {
     initialVariables: {
-        first: 3,
+        first: 10,
         last: null,
         afterCursor: null,
         beforeCursor: null

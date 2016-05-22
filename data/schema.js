@@ -7,10 +7,12 @@ import {
     connectionDefinitions,
     connectionArgs,
     connectionFromArray,
-    nodeDefinitions
+    nodeDefinitions,
+    mutationWithClientMutationId,
+    cursorForObjectInConnection
 } from "graphql-relay";
 
-import {getBooks} from "./database";
+import {getBooks, addBook} from "./database";
 
 let {nodeInterface, nodeField} = nodeDefinitions((globalId) => {
     let {type} = fromGlobalId(globalId);
@@ -75,4 +77,43 @@ const query = new GraphQLObjectType({
     })
 });
 
-export default new GraphQLSchema({query});
+
+const addBookMutation = mutationWithClientMutationId({
+    name: "AddBook",
+    inputFields: {
+        title: {
+            type: new GraphQLNonNull(GraphQLString)
+        }
+    },
+    //This define the Payload fragment.
+    outputFields: {
+        bookEdge: {
+            type: bookConnection.edgeType,
+            resolve: (book) => {
+                const edge = {
+                    cursor: cursorForObjectInConnection(getBooks(), book),
+                    node: book
+                };
+                return edge;
+            }
+        },
+
+        bookStore: {
+            type: bookStoreType,
+            resolve: () => bookStore
+        }
+    },
+    mutateAndGetPayload: ({title}) => {
+        const addedBook = addBook(title);
+        console.log("addedBook: ", addedBook);
+        return addedBook;
+    }
+});
+
+
+const mutation = new GraphQLObjectType({
+    name: "Mutation",
+    fields: () => ({addBook: addBookMutation})
+});
+
+export default new GraphQLSchema({query, mutation});
