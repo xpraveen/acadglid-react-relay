@@ -12,7 +12,7 @@ import {
     cursorForObjectInConnection
 } from "graphql-relay";
 
-import {getBooks, addBook} from "./database";
+import {getBooks, addBook, deleteBook} from "./database";
 
 let {nodeInterface, nodeField} = nodeDefinitions((globalId) => {
     let {type} = fromGlobalId(globalId);
@@ -111,9 +111,34 @@ const addBookMutation = mutationWithClientMutationId({
 });
 
 
+const deleteBookMutation = mutationWithClientMutationId({
+    name: "DeleteBook",
+    inputFields: {
+        id: {
+            type: new GraphQLNonNull(GraphQLID)
+        }
+    },
+    outputFields: {
+        deletedBookId: {
+            type: GraphQLID,
+            resolve: ({id}) => id
+        },
+        bookStore: {
+            type: bookStoreType,
+            resolve: () => bookStore
+        }
+    },
+    mutateAndGetPayload: ({id}) => {
+        let {id: localId} = fromGlobalId(id);
+        deleteBook(localId);
+        return {id};
+    }
+});
+
+
 const mutation = new GraphQLObjectType({
     name: "Mutation",
-    fields: () => ({addBook: addBookMutation})
+    fields: () => ({addBook: addBookMutation, deleteBook: deleteBookMutation})
 });
 
 export default new GraphQLSchema({query, mutation});

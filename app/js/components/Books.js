@@ -35,7 +35,7 @@ class Books extends React.Component {
                     <tbody>
                         {books.edges.map((edge, index) => {
                             const book = edge.node;
-                            return (<Book key={book.id} index={index + 1} book={book}/>);
+                            return (<Book key={book.id} index={index + 1} bookStore={bookStore} book={book}/>);
                         })
 }
                     </tbody>
@@ -56,6 +56,7 @@ export default Relay.createContainer(Books, {
     fragments: {
         bookStore: () => Relay.QL `
         fragment on BookStore {
+            ${Book.getFragment("bookStore")}
             books(first: $first,last: $last, after: $afterCursor, before: $beforeCursor){
                 edges{
                     node{
