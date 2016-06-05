@@ -4,8 +4,6 @@ import Book from "./Book";
 export default class Books extends React.Component {
 
     render() {
-        const counts = [1, 2, 3, 4, 5];
-
         return (
             <div>
                 <table className="table table-hover">
@@ -17,11 +15,9 @@ export default class Books extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {
-                            counts.map((count) => {
-                                return (<Book key={count} />);
-                            })
-                        }
+                        <Book/>
+                        <Book/>
+                        <Book/>
                     </tbody>
                 </table>
             </div>
