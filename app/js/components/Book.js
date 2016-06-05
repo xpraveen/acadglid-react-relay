@@ -5,7 +5,7 @@ export default class Book extends React.Component {
     render() {
         return (
             <tr>
-                <td>1</td><td>Book</td><td>Author</td>
+                <td>1</td><td>Book</td>
             </tr>
         );
     }

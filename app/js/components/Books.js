@@ -11,7 +11,6 @@ export default class Books extends React.Component {
                         <tr>
                             <th>#</th>
                             <th>Book</th>
-                            <th>Author</th>
                         </tr>
                     </thead>
                     <tbody>
