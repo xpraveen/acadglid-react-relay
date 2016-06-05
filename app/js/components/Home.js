@@ -4,7 +4,7 @@ import Books from "./Books";
 export default class Home extends React.Component {
     render() {
         return (
-            <div>
+            <div className="home">
                 <Books/>
             </div>
         );
