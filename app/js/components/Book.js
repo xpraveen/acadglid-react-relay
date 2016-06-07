@@ -3,11 +3,11 @@ import React from "react";
 export default class Book extends React.Component {
 
     render() {
-        const {book} = this.props;
+        const {id, title} = this.props;
         return (
             <tr>
-                <td>{book.id}</td>
-                <td>{book.title}</td>
+                <td>{id}</td>
+                <td>{title}</td>
             </tr>
         );
     }
