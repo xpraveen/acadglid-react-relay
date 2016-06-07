@@ -8,12 +8,17 @@ export default class Books extends React.Component {
      */
     renderBooks() {
         const {books} = this.props;
+
         return (books.map((book) => {
             const {id, title} = book;
-            return (<Book key={book.id} id={id} title={title}/>);
+            const titleWithPrefix = `Harry Potter and ${title}`;
+
+            return (<Book key={book.id} id={id} title={titleWithPrefix}/>);
         }));
     }
     render() {
+
+
         return (
             <div>
                 <table className="table table-hover">
