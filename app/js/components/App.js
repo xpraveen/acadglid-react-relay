@@ -10,30 +10,43 @@ export default class App extends React.Component {
 
         //Mock Data
         this.state = {
-            "books": [
-                {
-                    "id": "1",
-                    "title": "Philosopher's Stone"
-                }, {
-                    "id": "2",
-                    "title": "Chamber of Secrets"
-                }, {
-                    "id": "3",
-                    "title": "Prisoner of Azkaban",
-                    "isNew": true
+            "books": [{
+                "id": "1",
+                "title": "Philosopher's Stone",
+                "author": {
+                    "firstName": "J. K.",
+                    "lastName": "Rowling"
                 }
-            ]
+            }, {
+                "id": "2",
+                "title": "Chamber of Secrets",
+                "author": {
+                    "firstName": "J. K.",
+                    "lastName": "Rowling"
+                }
+            }, {
+                "id": "3",
+                "title": "Prisoner of Azkaban",
+                "isNew": true,
+                "author": {
+                    "firstName": "J. K.",
+                    "lastName": "Rowling"
+                }
+            }]
         };
     }
 
     render() {
-        let {books} = this.state;
+        let {
+            books
+        } = this.state;
 
-        return (
-            <div className="book-store">
-                <Header/>
-                <Home books={books}/>
-            </div>
+        return ( < div className = "book-store" >
+            < Header / >
+            < Home books = {
+                books
+            }
+            /> < /div>
         );
     }
 }

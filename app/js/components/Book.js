@@ -1,4 +1,5 @@
 import React from "react";
+import Author from "./Author";
 
 export default class Book extends React.Component {
 
@@ -10,11 +11,12 @@ export default class Book extends React.Component {
     }
     render() {
         const {book} = this.props;
-        const {id, title,isNew} = book;
+        const {id, title,isNew, author} = book;
         return (
             <tr>
                 <td>{id}</td>
                 <td>{title}  {isNew? this.renderNewArrivalLabel():""}</td>
+                <td><Author author={author}/></td>
             </tr>
         );
     }
