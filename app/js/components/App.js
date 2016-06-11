@@ -30,8 +30,8 @@ export default class App extends React.Component {
         let {books} = this.state;
         for (let i = 0; i < books.length; i++) {
             if (books[i].id === id) {
-                books.splice(i, 1);
-                this.setState({books});
+                const deletedBook = books.splice(i, 1)[0];
+                this.setState({books, deletedBook});
             }
         }
     }
@@ -52,12 +52,12 @@ export default class App extends React.Component {
     }
 
     render() {
-        let {books} = this.state;
+        let {books, deletedBook} = this.state;
 
         return (
             <div className="book-store">
                 <Header openBookDrawer={this.openBookDrawer}/>
-                <Home books={books} deleteBook={this.deleteBook}/>
+                <Home books={books} deletedBook={deletedBook} deleteBook={this.deleteBook}/>
                 <div>
                     {this.renderDrawer()}
                 </div>
