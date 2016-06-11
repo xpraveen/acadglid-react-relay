@@ -4,7 +4,7 @@ export default class BookDrawer extends React.Component {
 
     constructor(){
         super();
-        this.state = {};
+        this.state = {"title": ""};
     }
     closeBookDrawer = () => {
         this.props.closeBookDrawer();
