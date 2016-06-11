@@ -16,6 +16,7 @@ export default class Book extends React.Component {
             <tr>
                 <td>{book.id}</td>
                 <td>{book.title}</td>
+                <td>{book.isbn}</td>
                 <td>
                     <button type="button" className="btn btn-danger" onClick={this.handleBookDelete}>Delete</button>
                 </td>

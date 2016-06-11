@@ -15,13 +15,16 @@ export default class App extends React.Component {
             "books": [
                 {
                     "id": "1",
-                    "title": "Philosopher's Stone"
+                    "title": "Philosopher's Stone",
+                    "isbn": 1111
                 }, {
                     "id": "2",
-                    "title": "Chamber of Secrets"
+                    "title": "Chamber of Secrets",
+                    "isbn": 2222
                 }, {
                     "id": "3",
-                    "title": "Prisoner of Azkaban"
+                    "title": "Prisoner of Azkaban",
+                    "isbn": 3333
                 }
             ]
         };

@@ -13,6 +13,7 @@ export default class Books extends React.Component {
                         <tr>
                             <th>#</th>
                             <th>BOOK</th>
+                            <th>ISBN</th>
                             <th>DELETE</th>
                         </tr>
                     </thead>
