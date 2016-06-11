@@ -19,7 +19,8 @@ export default class App extends React.Component {
                     "title": "Chamber of Secrets"
                 }, {
                     "id": "3",
-                    "title": "Prisoner of Azkaban"
+                    "title": "Prisoner of Azkaban",
+                    "isNew": true
                 }
             ]
         };

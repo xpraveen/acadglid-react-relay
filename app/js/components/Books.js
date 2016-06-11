@@ -10,10 +10,7 @@ export default class Books extends React.Component {
         const {books} = this.props;
 
         return (books.map((book) => {
-            const {id, title} = book;
-            const titleWithPrefix = `Harry Potter and ${title}`;
-
-            return (<Book key={book.id} id={id} title={titleWithPrefix}/>);
+            return (<Book key={book.id} book={book}/>);
         }));
     }
     render() {
