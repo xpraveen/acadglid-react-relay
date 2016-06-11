@@ -2,9 +2,13 @@ import React from "react";
 
 export default class BookDrawer extends React.Component {
 
-    constructor(){
+    constructor() {
         super();
-        this.state = {"title": "", "isbn": ""};
+        this.state = {
+            "title": "",
+            "isbn": "",
+            "titleValid": true
+        };
     }
     closeBookDrawer = () => {
         this.props.closeBookDrawer();
@@ -19,17 +23,21 @@ export default class BookDrawer extends React.Component {
     }
 
     render() {
-        const {title, isbn} = this.state;
+        const {title, isbn, titleValid} = this.state;
         return (
             <div className="book-drawer">
                 <h1>Book</h1>
                 <form className="add-book form" onSubmit={this.addBook}>
                     <div className="form-group">
-                        <input type="text" value={title} onChange={e => this.setState({"title": e.target.value})}  className="form-control" placeholder="Add a Book Title"/>
+                        <input type="text" value={title} className={titleValid
+                            ? "form-control"
+                            : "form-control invalid"} onBlur={e => this.setState({"titleValid": e.target.validity.valid})} onChange={e => this.setState({"title": e.target.value})} placeholder="Add a Book Title" required={true} pattern="[A-Za-z-0-9\s]+"/>
                     </div>
                     <div className="form-group">
                         <label>ISBN</label>
-                        <input type="text" value={isbn} onChange={e => this.setState({"isbn": e.target.value})}  className="form-control" placeholder="Add a ISBN"/>
+                        <input type="text" value={isbn} className={titleValid
+                            ? "form-control"
+                            : "form-control invalid"} onBlur={e => this.setState({"titleValid": e.target.validity.valid})} onChange={e => this.setState({"isbn": e.target.value})} placeholder="Add a ISBN" required={true} pattern="[0-9]+"/>
                     </div>
                     <div className="form-group">
                         <button type="button" className="btn" onClick={this.closeBookDrawer}>Cancel</button>
