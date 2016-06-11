@@ -15,7 +15,7 @@ export default class Book extends React.Component {
             this.setState({"deleting": false}, () =>{
                 this.props.deleteBook(book.id);
             });
-        },2000);
+        },3000);
 
     }
     render() {
