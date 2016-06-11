@@ -3,6 +3,7 @@ import {GraphQLSchema, GraphQLObjectType, GraphQLString, GraphQLInt} from "graph
 import {globalIdField} from "graphql-relay";
 
 let helloCounter = 0;
+let lastLogin;
 
 const userType = new GraphQLObjectType({
     name: "User",
@@ -12,6 +13,14 @@ const userType = new GraphQLObjectType({
             type: GraphQLString,
             resolve: () => {
                 return "John";
+            }
+        },
+        lastLoginTimeStamp: {
+            type: GraphQLString,
+            resolve: () => {
+                const _lastLogin = lastLogin;
+                lastLogin = new Date();
+                return _lastLogin?_lastLogin.toISOString(): _lastLogin;
             }
         }
     })
