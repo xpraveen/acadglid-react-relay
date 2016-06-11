@@ -3,9 +3,17 @@ import Book from "./Book";
 
 export default class Books extends React.Component {
 
+    constructor(){
+        super();
+        this.state = {};
+    }
+
+    showDeleteButton = (event) => {
+        this.setState({"activeBookId": event.currentTarget.dataset.bookId});
+    }
     render() {
         const {books, deleteBook} = this.props; //Getting data using props.
-
+        const {activeBookId} = this.state;
         return (
             <div>
                 <table className="table table-hover">
@@ -19,7 +27,8 @@ export default class Books extends React.Component {
                     <tbody>
                         {
                             books.map((book) => {
-                                return (<Book key={book.id} book={book} deleteBook={deleteBook}/>);
+                                const active = (activeBookId === book.id);
+                                return (<Book key={book.id} active={active} book={book} deleteBook={deleteBook} onClick={this.showDeleteButton}/>);
                             })
                         }
                     </tbody>
