@@ -15,6 +15,18 @@ const userType = new GraphQLObjectType({
                 return "John";
             }
         },
+        lastName: {
+            type: GraphQLString,
+            resolve: () => {
+                return "Doe";
+            }
+        },
+        age: {
+            type: GraphQLInt,
+            resolve: () => {
+                return 35;
+            }
+        },
         lastLoginTimeStamp: {
             type: GraphQLString,
             resolve: () => {
