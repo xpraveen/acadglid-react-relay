@@ -12,10 +12,10 @@ export default class Book extends React.Component {
         this.setState({"deleting": true});
 
         setTimeout(() => {
-            this.props.deleteBook(book.id);
-            this.setState({"deleting": false});
-        },3000);
-
+            this.setState({"deleting": false}, () => {
+                this.props.deleteBook(book.id);
+            });
+        }, 3000);
     }
     render() {
         const {book, active} = this.props;
