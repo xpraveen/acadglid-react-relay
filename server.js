@@ -11,7 +11,7 @@ import schema from "./data/schema";
 const APP_PORT = 3000;
 
 //GraphQL Server config.
-const GRAPHQL_PORT = 8888;
+const GRAPHQL_PORT = 9999;
 const graphQLServer = express();
 graphQLServer.use("/", graphQLHTTP({graphiql: true, pretty: true, schema: schema}));
 graphQLServer.listen(GRAPHQL_PORT, () => console.log(`GraphQL Server is now running on http://localhost:${GRAPHQL_PORT}`));
@@ -21,7 +21,7 @@ const compiler = webpack(webpackConfig);
 const app = new WebpackDevServer(compiler, {
     hot: true,
     proxy: {
-        "/graphql": `http://localhost:${GRAPHQL_PORT}`
+        "/graphql": `http://localhost:${GRAPHQL_PORT}/graphql`
     },
     quiet: false,
     noInfo: false,
