@@ -3,13 +3,12 @@ import Relay from "react-relay";
 
 class Hello extends React.Component {
     render() {
-        const {hello} = this.props.bookStore;
-        const {firstName} = this.props.user;
+        const {firstName, lastLoginTimeStamp} = this.props.user;
+        const msg = (lastLoginTimeStamp ? `Yours last login time ${lastLoginTimeStamp}` : "Congratulation on your first login");
         return (
             <div className="container">
-                {hello}
-                <br/>
-                {firstName}
+                <b>Welcome {firstName} </b>
+                {msg}
             </div>
         );
     }
@@ -25,7 +24,8 @@ export default Relay.createContainer(Hello, {
         `,
         user: () => Relay.QL `
         fragment on User {
-            firstName
+            firstName,
+            lastLoginTimeStamp
         }
         `
     }
