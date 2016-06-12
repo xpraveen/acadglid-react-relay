@@ -4,7 +4,7 @@ import Relay from "react-relay";
 class Hello extends React.Component {
     render() {
         const {firstName, lastLoginTimeStamp} = this.props.user;
-        const msg = (lastLoginTimeStamp ? `Yours last login time ${lastLoginTimeStamp}` : "Congratulation on your first login");
+        const msg = (lastLoginTimeStamp ? `Yours  last login time ${lastLoginTimeStamp}` : "Congratulation on your first login");
         return (
             <div className="container">
                 <b>Welcome {firstName} </b>

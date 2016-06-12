@@ -26,11 +26,11 @@ const app = new WebpackDevServer(compiler, {
     quiet: false,
     noInfo: false,
     stats: {
-        assets: false,
+        assets: true,
         colors: true,
         version: false,
         hash: false,
-        timings: false,
+        timings: true,
         chunks: false,
         chunkModules: false
     }
