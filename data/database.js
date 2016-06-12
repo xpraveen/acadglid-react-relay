@@ -2,19 +2,25 @@ let books = [
     {
         "id": "1",
         "title": "Philosopher's Stone",
-        "available": true
+        "authorId": "1"
     }, {
         "id": "2",
         "title": "Chamber of Secrets",
-        "available": false
+        "authorId": "1"
     }, {
         "id": "3",
-        "title": "Prisoner of Azkaban",
-        "available": true
+        "title": "The Monk Who Sold His Ferrari",
+        "authorId": "2"
     }
 ];
 
-
+export function getAuthor(authorId) {
+    if (authorId === "1") {
+        return {"firstName": "J.K.", "lastName": "Rowling"};
+    } else if (authorId === "2") {
+        return {"firstName": "Robin", "lastName": "Sharma"};
+    }
+}
 export function getBooks() {
     return books;
 }

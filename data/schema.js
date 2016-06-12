@@ -9,7 +9,23 @@ import {
 
 import {globalIdField, toGlobalId} from "graphql-relay";
 
-import {getBooks} from "./database";
+import {getBooks, getAuthor} from "./database";
+
+let authorType = new GraphQLObjectType({
+    name: "Author",
+    fields: () => ({
+        id: {
+            type: new GraphQLNonNull(GraphQLID),
+            resolve: (obj) => toGlobalId("Author", obj.id)
+        },
+        firstName: {
+            type: GraphQLString
+        },
+        lastName: {
+            type: GraphQLString
+        }
+    })
+});
 
 let bookType = new GraphQLObjectType({
     name: "Book",
@@ -20,6 +36,12 @@ let bookType = new GraphQLObjectType({
         },
         title: {
             type: GraphQLString
+        },
+        author: {
+            type: authorType,
+            resolve: (obj) => {
+                return getAuthor(obj.authorId);
+            }
         }
     })
 });
