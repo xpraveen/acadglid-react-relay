@@ -1,17 +1,17 @@
 import React from "react";
 import Relay from "react-relay";
+import Author from "./Author";
 
 export default class Book extends React.Component {
 
     render() {
         const {book, index} = this.props;
-        const {firstName, lastName} = book.author;
 
         return (
             <tr>
                 <td>{index}</td>
                 <td>{book.title}</td>
-                <td>{firstName} {lastName}</td>
+                <td><Author author={book.author}/></td>
                 <td>
                     <button type="button" className="btn btn-danger" onClick={this.handleBookDelete}>Delete</button>
                 </td>
@@ -26,8 +26,7 @@ export default Relay.createContainer(Book, {
         fragment book on Book {
             title,
             author{
-                firstName,
-                lastName
+                ${Author.getFragment("author")}
             }
         }
         `
