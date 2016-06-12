@@ -7,6 +7,11 @@ export default class BookStoreRoute extends Relay.Route {
             query{
                 bookStore
             }
+        `,
+        user: () => Relay.QL `
+            query{
+                user
+            }
         `
     };
 }
