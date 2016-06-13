@@ -56,8 +56,8 @@ const bookStoreType = new GraphQLObjectType({
             },
             resolve: (_, args) => {
 
-                const promise = new Promise(function(resolve) {
-                    setTimeout(() => resolve(getBooks()), 3000);
+                const promise = new Promise(function(resolve, reject) {
+                    setTimeout(() => reject("This is a forced error message."), 3000);
                 });
                 return connectionFromPromisedArray(promise, args);
             }
