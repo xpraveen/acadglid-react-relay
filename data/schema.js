@@ -6,7 +6,7 @@ import {
     toGlobalId,
     connectionDefinitions,
     connectionArgs,
-    connectionFromArray,
+    connectionFromPromisedArray,
     nodeDefinitions
 } from "graphql-relay";
 
@@ -55,7 +55,11 @@ const bookStoreType = new GraphQLObjectType({
                 ...connectionArgs
             },
             resolve: (_, args) => {
-                return connectionFromArray(getBooks(), args);
+
+                const promise = new Promise(function(resolve) {
+                    setTimeout(() => resolve(getBooks()), 3000);
+                });
+                return connectionFromPromisedArray(promise, args);
             }
         }
     })
