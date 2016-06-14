@@ -40,7 +40,7 @@ class Books extends React.Component {
                     <tbody>
                         {books && books.edges.map((edge, index) => {
                             const book = edge.node;
-                            return (<Book key={book.id} index={index + 1} bookStore={bookStore} book={book}/>);
+                            return (<Book key={book.id} index={index + 1} bookStore={bookStore} filterBy={filterBy} book={book}/>);
                         })
 }
                     </tbody>
