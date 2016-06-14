@@ -29,6 +29,7 @@ class Books extends React.Component {
                         <tr>
                             <th>#</th>
                             <th>BOOK</th>
+                            <th>AUTHOR</th>
                             <th>DELETE</th>
                         </tr>
                     </thead>

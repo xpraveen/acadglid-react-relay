@@ -10,6 +10,7 @@ export default class Book extends React.Component {
             <tr>
                 <td>{index}</td>
                 <td>{book.title}</td>
+                <td>{book.author}</td>
                 <td>
                     <button type="button" className="btn btn-danger" onClick={this.handleBookDelete}>Delete</button>
                 </td>
@@ -21,8 +22,9 @@ export default class Book extends React.Component {
 export default Relay.createContainer(Book, {
     fragments: {
         book: () => Relay.QL `
-        fragment book on Book {
-            title
+        fragment on Book {
+            title,
+            author
         }
         `
     }

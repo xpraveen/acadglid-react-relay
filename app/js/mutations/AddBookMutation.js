@@ -18,7 +18,8 @@ export default class AddBookMutation extends Relay.Mutation {
      * one variable as input – the title of the Book.
      */
     getVariables() {
-        return {title: this.props.title};
+        const {title, author} =  this.props;
+        return {title, author};
     }
 
     /**

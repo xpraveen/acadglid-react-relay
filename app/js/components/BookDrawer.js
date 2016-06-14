@@ -17,7 +17,7 @@ class BookDrawer extends React.Component {
         };
 
         const {bookStore} = this.props;
-        const mutation = new AddBookMutation({"title": this.title.value, bookStore});
+        const mutation = new AddBookMutation({"title": this.title.value, "author": this.author.value, bookStore});
 
         Relay.Store.commitUpdate(mutation, {onFailure, onSuccess});
     }
@@ -33,7 +33,10 @@ class BookDrawer extends React.Component {
                 <h1>Book</h1>
                 <form className="add-book form" onSubmit={this.handleSubmit}>
                     <div className="form-group">
-                        <input type="text" ref={c => this.title = c} className="form-control" id="title" placeholder="Add a Book Title"/>
+                        <input type="text" ref={c => this.title = c} className="form-control" placeholder="Add a Book Title"/>
+                    </div>
+                    <div className="form-group">
+                        <input type="text" ref={c => this.author = c} className="form-control" placeholder="Add a author name"/>
                     </div>
                     <div className="form-group">
                         <button type="button" className="btn" onClick={this.closeBookDrawer}>Cancel</button>

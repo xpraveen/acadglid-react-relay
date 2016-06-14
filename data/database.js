@@ -12,11 +12,12 @@ let books = [
 ];
 
 let idCounter = 100;
-export function addBook(title) {
+export function addBook({title, author}) {
     idCounter++;
     const book = {
         "id": "" + idCounter,
-        "title": title
+        title,
+        author
     };
 
     books.push(book);

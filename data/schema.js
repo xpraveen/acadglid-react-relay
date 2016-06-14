@@ -24,7 +24,6 @@ let {nodeInterface, nodeField} = nodeDefinitions((globalId) => {
     }
 
 }, (obj) => {
-
     if (obj instanceof BookStore) {
         return bookStoreType;
     }
@@ -39,6 +38,9 @@ let bookType = new GraphQLObjectType({
             resolve: (obj) => toGlobalId("Book", obj.id)
         },
         title: {
+            type: GraphQLString
+        },
+        author: {
             type: GraphQLString
         }
     })
@@ -83,6 +85,9 @@ const addBookMutation = mutationWithClientMutationId({
     inputFields: {
         title: {
             type: new GraphQLNonNull(GraphQLString)
+        },
+        author: {
+            type: new GraphQLNonNull(GraphQLString)
         }
     },
     //This define the Payload fragment.
@@ -103,8 +108,8 @@ const addBookMutation = mutationWithClientMutationId({
             resolve: () => bookStore
         }
     },
-    mutateAndGetPayload: ({title}) => {
-        const addedBook = addBook(title);
+    mutateAndGetPayload: ({title, author}) => {
+        const addedBook = addBook({title, author});
         console.log("addedBook: ", addedBook);
         return addedBook;
     }
