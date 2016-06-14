@@ -4,30 +4,17 @@ import Book from "./Book";
 
 class Books extends React.Component {
 
-    moveNext = () => {
-        const {endCursor} = this.props.bookStore.books.pageInfo;
-        this.props.relay.setVariables({"first": 10, "last": null, "afterCursor": endCursor, "beforeCursor": null});
-    }
-
-    movePrev = () => {
-        const {startCursor} = this.props.bookStore.books.pageInfo;
-        this.props.relay.setVariables({"first": null, "last": 10, "afterCursor": null, "beforeCursor": startCursor});
-    }
-
     componentWillReceiveProps(nextProps) {
-        const {filterBy} = nextProps;
-        this.props.relay.setVariables({filterBy});
+        const { titleKey,authorKey} = nextProps;
+        this.props.relay.setVariables({ "title": titleKey, "author": authorKey});
     }
     render() {
-        const {bookStore, filterBy} = this.props;
+        const {bookStore} = this.props;
         const {books} = bookStore;
 
         return (
             <div>
 
-                <button className="btn" onClick={this.movePrev}>Prev</button>
-                &nbsp; &nbsp;
-                <button className="btn" onClick={this.moveNext}>Next</button>
                 <table className="table table-hover">
                     <thead>
                         <tr>
@@ -52,27 +39,21 @@ class Books extends React.Component {
 
 export default Relay.createContainer(Books, {
     initialVariables: {
-        first: 10,
-        last: null,
-        afterCursor: null,
-        beforeCursor: null,
-        filterBy: ""
+        first: 99,
+        title: null,
+        author: null
     },
 
     fragments: {
         bookStore: () => Relay.QL `
         fragment on BookStore {
             ${Book.getFragment("bookStore")}
-            books(first: $first,last: $last, after: $afterCursor, before: $beforeCursor, filterBy: $filterBy){
+            books(first: $first, title: $title, author: $author){
                 edges{
                     node{
                         id,
                         ${Book.getFragment("book")}
                     }
-                }
-                pageInfo {
-                    startCursor,
-                    endCursor
                 }
             }
         }

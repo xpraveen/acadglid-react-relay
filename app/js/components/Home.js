@@ -6,22 +6,36 @@ class Home extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {filterBy: ""};
+        this.state = {
+            filterBy: "",
+            titleKey: "",
+            authorKey: ""
+        };
     }
     handleSearch = (event) => {
-        const filterBy = event.target.value;
-        this.setState({filterBy});
+        const {name, value} = event.target;
+        this.setState({
+            [`${name}`]: value
+        });
+
     }
     render() {
         /* Data passed by parent component can be received in child using 'props' */
         const {bookStore, deleteBook} = this.props;
-        const {filterBy} = this.state;
+        const {titleKey, authorKey} = this.state;
 
         return (
             <div className="container">
-                <input type="text" className="form-control" placeholder="Search" onChange={this.handleSearch}/>
+                <form className="form-inline">
+                    <div className="form-group">
+                        <input type="text" name="titleKey" value={titleKey} className="form-control" placeholder="Enter title" onChange={this.handleSearch}/>
+                    </div>
+                    <div className="form-group">
+                        <input type="text" name="authorKey" value={authorKey} className="form-control" placeholder="Enter author name" onChange={this.handleSearch}/>
+                    </div>
+                </form>
                 <br/>
-                <Books filterBy={filterBy} bookStore={bookStore} deleteBook={deleteBook}/>
+                <Books titleKey={titleKey} authorKey={authorKey} bookStore={bookStore} deleteBook={deleteBook}/>
             </div>
         );
     }
