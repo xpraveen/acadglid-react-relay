@@ -65,6 +65,7 @@ const bookStoreType = new GraphQLObjectType({
     })
 });
 
+
 class BookStore {}
 const bookStore = new BookStore();
 
