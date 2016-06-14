@@ -16,9 +16,10 @@ export default class Book extends React.Component {
             console.error(error);
         };
 
-        const mutation = new DeleteBookMutation({id: id, bookStore: this.props.bookStore});
-
-        Relay.Store.commitUpdate(mutation, {onFailure, onSuccess});
+        if (confirm("Do you really want to delete this Book?")) {
+            const mutation = new DeleteBookMutation({id: id, bookStore: this.props.bookStore});
+            Relay.Store.commitUpdate(mutation, {onFailure, onSuccess});
+        }
     }
 
     render() {
@@ -44,7 +45,7 @@ export default Relay.createContainer(Book, {
                 id
             }
         `,
-        
+
         book: () => Relay.QL `
         fragment book on Book {
             id,
