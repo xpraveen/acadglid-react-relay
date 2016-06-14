@@ -15,7 +15,7 @@ class Books extends React.Component {
     }
 
     render() {
-        const {bookStore, showSuccess} = this.props;
+        const {bookStore, showMessage} = this.props;
         const {books} = bookStore;
 
         return (
@@ -35,7 +35,7 @@ class Books extends React.Component {
                     <tbody>
                         {books.edges.map((edge, index) => {
                             const book = edge.node;
-                            return (<Book key={book.id} index={index + 1} showSuccess={showSuccess} bookStore={bookStore} book={book}/>);
+                            return (<Book key={book.id} index={index + 1} showMessage={showMessage} bookStore={bookStore} book={book}/>);
                         })
 }
                     </tbody>

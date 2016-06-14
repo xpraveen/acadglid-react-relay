@@ -13,11 +13,12 @@ export default class Book extends React.Component {
 
         const onSuccess = (response) => {
             console.log("Mutation successful!: response: ", response);
-            this.props.showSuccess({msg: `Book ${title} has been deleted!`});
+            this.props.showMessage({msg: `Book ${title} has been deleted!`, type: "success"});
         };
         const onFailure = (transaction) => {
             let error = transaction.getError() || new Error("Mutation failed.");
             console.error(error);
+            this.props.showMessage({msg: "Oops!.....Can't delete Book now!", type: "error"});
         };
 
         if (confirm("Do you really want to delete this Book?")) {

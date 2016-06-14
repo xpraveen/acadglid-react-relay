@@ -3,7 +3,7 @@ import Relay from "react-relay";
 import Header from "./Header";
 import Home from "./Home";
 import BookDrawer from "./BookDrawer";
-import Info from "./Info";
+import Message from "./Message";
 
 class App extends React.Component {
 
@@ -22,8 +22,8 @@ class App extends React.Component {
         this.setState({view: "ADD_BOOK"});
     }
 
-    handleSuccess = ({msg}) =>{
-        this.setState({msg});
+    handleShowMessage = ({msg, type}) =>{
+        this.setState({msg, type});
     }
 
     renderDrawer() {
@@ -37,12 +37,12 @@ class App extends React.Component {
 
     render() {
         const {bookStore} = this.props;
-        const {msg} =  this.state;
+        const {msg, type} =  this.state;
         return (
             <div className="book-store">
                 <Header openBookDrawer={this.openBookDrawer}/>
-                <Info msg={msg}/>
-                <Home bookStore={bookStore} showSuccess={this.handleSuccess}/>
+                <Message msg={msg} type= {type}/>
+                <Home bookStore={bookStore} showMessage={this.handleShowMessage}/>
                 <div>
                     {this.renderDrawer()}
                 </div>

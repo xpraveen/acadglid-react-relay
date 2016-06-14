@@ -129,9 +129,10 @@ const deleteBookMutation = mutationWithClientMutationId({
         }
     },
     mutateAndGetPayload: ({id}) => {
-        let {id: localId} = fromGlobalId(id);
-        deleteBook(localId);
-        return {id};
+        //let {id: localId} = fromGlobalId(id);
+        //deleteBook(localId);
+        //return {id};
+        return new Error("Forced Error");
     }
 });
 
