@@ -3,22 +3,33 @@ import Relay from "react-relay";
 import AddBookMutation from "../mutations/AddBookMutation";
 
 class BookDrawer extends React.Component {
+    constructor() {
+        super();
+        this.state = {};
+    }
 
     handleSubmit = (event) => {
         event.preventDefault();
 
         const onSuccess = (response) => {
             console.log("Mutation successful!: response: ", response);
-            this.closeBookDrawer();
+
+            setTimeout(() => {
+                this.setState({"progress": false});
+                this.closeBookDrawer();
+            },4000);
+
         };
         const onFailure = (transaction) => {
             const error = transaction.getError() || new Error("Mutation failed.");
+            this.setState({"progress": false});
             console.error(error);
+
         };
 
         const {bookStore} = this.props;
         const mutation = new AddBookMutation({"title": this.title.value, "author": this.author.value, bookStore});
-
+        this.setState({"progress": true});
         Relay.Store.commitUpdate(mutation, {onFailure, onSuccess});
     }
 
@@ -27,7 +38,7 @@ class BookDrawer extends React.Component {
     }
 
     render() {
-
+        const {progress} = this.state;
         return (
             <div className="book-drawer">
                 <h1>Book</h1>
@@ -40,7 +51,7 @@ class BookDrawer extends React.Component {
                     </div>
                     <div className="form-group">
                         <button type="button" className="btn" onClick={this.closeBookDrawer}>Cancel</button>
-                        <button type="submit" className="btn btn-primary  float-right">"Add Book"</button>
+                        <button disabled={progress} type="submit" className="btn btn-primary  float-right">{progress? "Adding..": "Add Book"}</button>
                     </div>
                 </form>
             </div>
