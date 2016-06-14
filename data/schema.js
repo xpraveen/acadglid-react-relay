@@ -60,11 +60,17 @@ const bookStoreType = new GraphQLObjectType({
                 ...connectionArgs,
                 filterBy: {
                     type: GraphQLString
+                },
+                title: {
+                    type: GraphQLString
+                },
+                author: {
+                    type: GraphQLString
                 }
             },
             resolve: (_, args) => {
-                const {filterBy} = args;
-                return connectionFromArray(getBooks(filterBy), args);
+                const {filterBy, title, author} = args;
+                return connectionFromArray(getBooks({filterBy, title, author}), args);
             }
         }
     })
@@ -83,7 +89,6 @@ const query = new GraphQLObjectType({
         }
     })
 });
-
 
 const addBookMutation = mutationWithClientMutationId({
     name: "AddBook",
@@ -117,7 +122,6 @@ const addBookMutation = mutationWithClientMutationId({
     }
 });
 
-
 const deleteBookMutation = mutationWithClientMutationId({
     name: "DeleteBook",
     inputFields: {
@@ -141,7 +145,6 @@ const deleteBookMutation = mutationWithClientMutationId({
         return {id};
     }
 });
-
 
 const mutation = new GraphQLObjectType({
     name: "Mutation",

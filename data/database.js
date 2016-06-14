@@ -45,10 +45,49 @@ function serachBookByFilter(filterBy) {
     }
 }
 
-export function getBooks(filterBy) {
+function isTitleMatching(book, title) {
+    return book.title.search(new RegExp(title, "i")) >= 0;
+}
+
+function isAuthorMatching(book, author) {
+    return book.author.search(new RegExp(author, "i")) >= 0;
+}
+
+function advanceSearch({title, author}) {
+
+    const filteredBooks = books.filter((book) => {
+
+        if (title && author) {
+            if (isTitleMatching(book, title) && isAuthorMatching(book, author)) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        if (title) {
+            return isTitleMatching(book, title);
+        }
+        if (author) {
+            return isAuthorMatching(book, author);
+        }
+        return false;
+
+    });
+
+    if (filteredBooks) {
+        return filteredBooks;
+    } else {
+        return [];
+    }
+}
+
+export function getBooks({filterBy, title, author}) {
+    if (title || author) {
+        return advanceSearch({title, author});
+    }
 
     if (filterBy) {
-        return serachBookByFilter(filterBy);
+        return serachBookByFilter({filterBy});
     }
     return books;
 }
