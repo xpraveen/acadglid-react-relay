@@ -8,8 +8,12 @@ export default class Book extends React.Component {
         event.stopPropagation();
         console.log("Deleting Book with id: ", id);
 
+        const {book} = this.props;
+        const {title} = book;
+
         const onSuccess = (response) => {
             console.log("Mutation successful!: response: ", response);
+            this.props.showSuccess({msg: `Book ${title} has been deleted!`});
         };
         const onFailure = (transaction) => {
             let error = transaction.getError() || new Error("Mutation failed.");

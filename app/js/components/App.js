@@ -3,6 +3,7 @@ import Relay from "react-relay";
 import Header from "./Header";
 import Home from "./Home";
 import BookDrawer from "./BookDrawer";
+import Info from "./Info";
 
 class App extends React.Component {
 
@@ -21,6 +22,10 @@ class App extends React.Component {
         this.setState({view: "ADD_BOOK"});
     }
 
+    handleSuccess = ({msg}) =>{
+        this.setState({msg});
+    }
+
     renderDrawer() {
         const {view} = this.state;
         const {bookStore} = this.props;
@@ -32,10 +37,12 @@ class App extends React.Component {
 
     render() {
         const {bookStore} = this.props;
+        const {msg} =  this.state;
         return (
             <div className="book-store">
                 <Header openBookDrawer={this.openBookDrawer}/>
-                <Home bookStore={bookStore}/>
+                <Info msg={msg}/>
+                <Home bookStore={bookStore} showSuccess={this.handleSuccess}/>
                 <div>
                     {this.renderDrawer()}
                 </div>
