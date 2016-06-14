@@ -53,7 +53,7 @@ export default class AddBookMutation extends Relay.Mutation {
                 connectionName: "books",
                 edgeName: "bookEdge",
                 rangeBehaviors: {
-                    "": "append"
+                    "": "prepend"
                 }
             }
         ];
