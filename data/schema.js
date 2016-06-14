@@ -40,6 +40,9 @@ let bookType = new GraphQLObjectType({
         },
         title: {
             type: GraphQLString
+        },
+        author: {
+            type: GraphQLString
         }
     })
 });
