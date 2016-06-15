@@ -6,14 +6,16 @@ import webpackConfig from "./webpack.config";
 
 const APP_PORT = 3000;
 
-webpackConfig.entry.app.unshift("webpack-dev-server/client?http://localhost:" + APP_PORT + "/", "webpack/hot/dev-server");
+//Below clode will enable HMR
+//webpackConfig.entry.app.unshift("webpack-dev-server/client?http://localhost:" + APP_PORT + "/", "webpack/hot/dev-server");
+
 const compiler = webpack(webpackConfig);
 const app = new WebpackDevServer(compiler, {
-    hot: true,
+    hot: false,
     quiet: false,
     noInfo: false,
     stats: {
-        assets: false,
+        assets: true,
         colors: true,
         version: false,
         hash: false,
