@@ -2,11 +2,11 @@ var webpack = require("webpack");
 
 module.exports = {
     entry: {
-        app: ["./app/js/main.js"]
+        app: ["./app/js/app.js"]
     },
     output: {
         path: __dirname,
-        filename: "dist/bundle.js",
+        filename: "dist/dist.js",
         publicPath: "/dist/"
     },
     devtool: "source-map",
