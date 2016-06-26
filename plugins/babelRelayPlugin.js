@@ -1,3 +1,3 @@
-let babelRelayPlugin = require("babel-relay-plugin");
-let schemaData = require("../data/schema.json").data;
+var babelRelayPlugin = require("babel-relay-plugin");
+var schemaData = require("../data/schema.json").data;
 module.exports = babelRelayPlugin(schemaData);

@@ -1,0 +1,27 @@
+import expect from "expect";
+import React from "react";
+import TestUtils from "react-addons-test-utils";
+import Header from "app/js/components/Header";
+
+let component;
+describe("<Header />", () => {
+
+    beforeEach(() => {
+        const props = {
+        };
+
+        const renderer = TestUtils.createRenderer();
+        renderer.render(<Header {...props}/>);
+        component = renderer.getRenderOutput();
+    });
+
+    it("Component should rendered as div", () => {
+        expect(component.type).toBe("div");
+    });
+
+    it("Component's should rendered with a header with text 'Book Store'", () => {
+        let [firstChild] = component.props.children;
+        expect(firstChild.type).toBe("h1");
+        expect(firstChild.props.children).toBe("Book Store");
+    });
+});

@@ -17,3 +17,6 @@ npm-debug.log
 
 #OSX
 .DS_Store
+
+#Mocha
+.tmp/

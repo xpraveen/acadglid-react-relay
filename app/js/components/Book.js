@@ -5,7 +5,7 @@ import DeleteBookMutation from "../mutations/DeleteBookMutation";
 export default class Book extends React.Component {
 
     deleteBook(event, id) {
-        event.stopPropagation();
+        event && event.stopPropagation();
         console.log("Deleting Book with id: ", id);
 
         const onSuccess = (response) => {
@@ -44,7 +44,7 @@ export default Relay.createContainer(Book, {
                 id
             }
         `,
-        
+
         book: () => Relay.QL `
         fragment book on Book {
             id,
