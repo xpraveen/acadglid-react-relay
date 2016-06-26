@@ -7,7 +7,6 @@
     "start": "babel-node ./scripts/updateSchema.js & babel-node server.js",
     "test": "mocha-webpack -c --webpack-config webpack.config.test.js \"test/**/*.test.js\"",
     "test-watch": "npm run test -- --watch",
-
     "start:prod": "babel-node ./scripts/updateSchema.js & babel-node server.prod.js",
     "clean:dist": "rm -rf ./dist && mkdir dist",
     "copy-html-prod": "cp index.prod.html dist/index.html",
@@ -43,6 +42,7 @@
     "express": "^4.13.4",
     "express-graphql": "^0.5.3",
     "graphql": "^0.5.0",
+    "graphql-relay": "^0.4.1",
     "inject-loader": "^2.0.1",
     "jsdom": "8.5.0",
     "mocha": "2.4.5",
