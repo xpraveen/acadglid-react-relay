@@ -6,7 +6,13 @@
   "scripts": {
     "start": "babel-node ./scripts/updateSchema.js & babel-node server.js",
     "test": "mocha-webpack -c --webpack-config webpack.config.test.js \"test/**/*.test.js\"",
-    "test-watch": "npm run test -- --watch"
+    "test-watch": "npm run test -- --watch",
+
+    "start:prod": "babel-node ./scripts/updateSchema.js & babel-node server.prod.js",
+    "clean:dist": "rm -rf ./dist && mkdir dist",
+    "copy-html-prod": "cp index.prod.html dist/index.html",
+    "prebuild": "npm run clean:dist && npm run copy-html-prod && npm run test",
+    "build": "babel-node scripts/build.js && npm run start:prod"
   },
   "author": "",
   "license": "ISC",
@@ -25,6 +31,9 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
     "babel-relay-plugin": "^0.8.1",
+    "chalk": "^1.1.3",
+    "cheerio": "^0.20.0",
+    "compression": "^1.6.2",
     "css-loader": "^0.23.1",
     "enzyme": "2.2.0",
     "eslint": "^2.8.0",
