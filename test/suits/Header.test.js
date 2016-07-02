@@ -18,6 +18,10 @@ describe("<Header />", () => {
         expect(component.find("h1").text()).toBe("Book Store");
     });
 
+    it("Component's should rendered with class header", () => {
+        expect(component.hasClass("header")).toBe(true);
+    });
+
     it("Component's button should open Drawer to add Book", () => {
         const spy = expect.createSpy();
         component.setProps({openBookDrawer: spy});
