@@ -4,22 +4,18 @@ import AddBookMutation from "../mutations/AddBookMutation";
 
 class BookDrawer extends React.Component {
 
-    handleSubmit = (event) => {
-        event.preventDefault();
+    onSuccess = (response) => {
+        console.log("Mutation successful!: response: ", response);
+        this.closeBookDrawer();
+    }
 
-        const onSuccess = (response) => {
-            console.log("Mutation successful!: response: ", response);
-            this.closeBookDrawer();
-        };
-        const onFailure = (transaction) => {
-            const error = transaction.getError() || new Error("Mutation failed.");
-            console.error(error);
-        };
+    handleSubmit = (event) => {
+        event && event.preventDefault();
 
         const {bookStore} = this.props;
         const mutation = new AddBookMutation({"title": this.title.value, bookStore});
 
-        Relay.Store.commitUpdate(mutation, {onFailure, onSuccess});
+        Relay.Store.commitUpdate(mutation, {onSuccess: this.onSuccess});
     }
 
     closeBookDrawer = () => {
