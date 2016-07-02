@@ -7,11 +7,11 @@
     "start": "babel-node ./scripts/updateSchema.js & babel-node server.js",
     "test": "babel-node ./scripts/msgs/testStart.js && mocha-webpack -c --webpack-config webpack.config.test.js \"test/**/*.test.js\" && babel-node ./scripts/msgs/testEnd.js",
     "test-watch": "npm run test -- --watch",
-    "start:prod": "babel-node ./scripts/updateSchema.js & babel-node server.prod.js",
+    "start:prod": "babel-node ./scripts/updateSchema.js && npm run build && babel-node server.prod.js",
     "clean:dist": "rm -rf ./dist && mkdir dist",
     "copy-html-prod": "cp index.prod.html dist/index.html",
     "prebuild": "npm run clean:dist && npm run copy-html-prod && npm run test",
-    "build": "babel-node scripts/build.js && npm run start:prod"
+    "build": "babel-node scripts/build.js"
   },
   "author": "",
   "license": "ISC",
