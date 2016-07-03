@@ -21,7 +21,7 @@ export default class App extends React.Component {
 
     shouldComponentUpdate() {
         console.log("shouldComponentUpdate");
-        return true;
+        return false;
     }
 
     componentWillUpdate() {
