@@ -6,21 +6,23 @@ export default class App extends React.Component {
     constructor() {
         super();
         this.state = {
-            hello: "Hi"
+            hello: "Hi",
+            renderLifeCycle: true
         };
     }
 
     componentDidMount() {
         setTimeout(() => {
-            this.setState({hello: "Hello"});
+            this.setState({hello: "Hello", renderLifeCycle: false});
         }, 5000);
     }
 
     render() {
+        const {renderLifeCycle} = this.state;
 
         return (
             <div className="app container">
-                <Lifecycle hello={this.state.hello}/>
+                {renderLifeCycle && <Lifecycle hello={this.state.hello}/>}
             </div>
         );
     }
