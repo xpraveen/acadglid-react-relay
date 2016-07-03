@@ -2,9 +2,9 @@ import React from "react";
 
 export default class App extends React.Component {
 
-    constructor() {
+    constructor(props) {
         super();
-        console.log("constructor");
+        console.log("constructor: props: ", props);
     }
 
     componentWillMount() {
@@ -15,8 +15,8 @@ export default class App extends React.Component {
         console.log("componentDidMount");
     }
 
-    componentWillReceiveProps() {
-        console.log("componentWillReceiveProps");
+    componentWillReceiveProps(nextProps) {
+        console.log("componentWillReceiveProps: nextProps: ", nextProps);
     }
 
     shouldComponentUpdate() {
